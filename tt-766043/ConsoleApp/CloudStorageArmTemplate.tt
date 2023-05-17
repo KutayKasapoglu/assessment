@@ -1,0 +1,48 @@
+﻿<#/* 
+Author: Kutay Kasapoglu
+The "ConsoleApp.Utilities" namespace is imported to provide access to utility classes and methods that are used within this template. 
+Some of the processes have been transferred to this helper class in order to keep template file clean and focused on its main purpose.
+    - TemplateHelper.GetEnumDescription()
+    - TemplateHelper.GenerateBlobContainersJson()
+    - EnumHelper.GetEnumDescription()
+*/#>
+
+<#@ template language="C#" linePragmas="false" inherits="RuntimeTextTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="ConsoleApp.Utilities" #>
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": { },
+    "variables": {
+        "storageAccountName": "<#= StorageAccountName #>",
+        "tierName": "<#= EnumHelper.GetEnumDescription(Tier) #>",
+        "blobContainers": <#= TemplateHelper.WriteJsonArray(BlobContainers) #>,
+        "location": "[resourceGroup().location]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "location": "[variables('location')]",
+            "apiVersion": "2021-04-01",
+            "sku": {
+                "name": "[variables('tierName')]"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "accessTier": "Hot"
+            }
+        },
+        <#= TemplateHelper.GenerateBlobContainersJson(BlobContainers) #>
+    ],
+    "outputs": {
+        "storageAccountId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+        }
+    }
+}

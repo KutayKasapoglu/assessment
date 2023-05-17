@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "E0clM46PjYMVMJY7udZv499oXdtPtzVci/aaADuSty2iYgGONDChcYd77NimqgHEEDliQ65uyn9fS+IS2R0ycg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kutay\\OneDrive\\Masaüstü\\assessment_Back_End_Kutay_Kasapoglu\\tt-766043\\ConsoleApp\\ConsoleApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kutay\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
